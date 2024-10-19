@@ -13,7 +13,7 @@ jobs:
 
       # Setup NodeJS so we can start doing NodeJS thing
       - name: Checkout
-        uses: actions/checkout@v4.0.4
+        uses: actions/setup-node@v4.0.4
         with:
           node-version: "Latest"
 
