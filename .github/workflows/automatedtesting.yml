@@ -7,3 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello world"
+      # Check out a copy of the repos code
+      - name: Checkout
+        uses: actions/checkout@v4.2.1
+
+      # Setup NodeJS so we can start doing NodeJS thing
+      - name: Checkout
+        uses: actions/checkout@v4.0.4
+        with:
+          node-version: "Latest"
+
+      # Install NPM packages such as Express
+      - name: Install dependencies for our project
+        run: npm install
+
+      # Run our project's `test` command to actually run the tests
+      - name: Actually run the tests, finally!
+        run: npm run test
