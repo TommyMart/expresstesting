@@ -6,67 +6,75 @@ const request = require("supertest");
 
 describe("Users controller", () => {
 
-    test("Get all users route returns array of users", async () => {
-        // GET localhost:3000/users
-        const response = await request(app).get("/users");
+	test("Get all users route returns array of users", async () => {
+		// GET localhost:3000/users
+		const response = await request(app).get("/users");
 
-        expect(response.body.data.length).toBe(6);
+		expect(response.body.data.length).toBe(6);
 
-        let expectedUsers = [
-            "xander",
-            "tom",
-            "hannah",
-            "reece",
-            "brad",
-            "hayden"
-        ];
+		let expectedUsers = [
+			"xander",
+			"tom",
+			"hannah",
+			"reece",
+			"brad",
+			"hayden"
+		];
 
-        expect(response.body.data).toEqual(expect.arrayContaining(expectedUsers));
-    });
+		expect(response.body.data).toEqual(expect.arrayContaining(expectedUsers));
 
-    test.skip("Get user by ID route returns a single user as object", async () => {
-        // GET localhost:3000/users/12345
-        let targetUserId = "12345";
-        const response = await request(app).get("/users/" + targetUserId);
-    });
+	});
 
-    test.skip("User sign-up route returns a single user as object", async () => {
-        // POST localhost:3000/users/signup
-        const response = (await request(app)
-        .post("/users/signup"))
-        .send({
-            username: "jason", 
-            password: "password1"
-        });
-    });
+	test("Get user by ID route returns a single user as object", async () => {
+		// GET localhost:3000/users/12345
+		let targetUserId = "12345";
+		const response = await request(app).get("/users/" + targetUserId);
 
-    test.skip("User login route returns a single user as object", async () => {
-        // POST localhost:3000/users/login
-        const response = (await request(app)
-        .post("/users/login"))
-        .send({
-            username: "jason", 
-            password: "password1"
-        });
-    });
+        expect(response.body.result.id).toBe(targetUserId);
+        expect(response.body.result.username).toBe("Pretend this is a username from the DB");
+	});
 
-    test.skip("User update/edit route returns a single user as object", async () => {
-        // PATCH localhost:3000/users/12345
-        const response = await request(app)
-        .patch("/users/12345")
-        .send({
-            username: "jason", 
-            password: "password1"
-        });
-    });
+	test("User sign-up route returns a single user as object", async () => {
+		// POST localhost:3000/users/signup
+		const response = await request(app)
+			.post("/users/signup")
+			.send({
+				username: "jason", 
+				password:"SuperCoolPassword1"
+			});
+		
+		expect(response.body.username).toBe("jason");
+		expect(response.body.password).toBe("EncryptedPassword");
+	});
 
-    test.skip("User delete route returns return a number of users deleted", async () => {
-        // DELETE localhost:3000/users/12345
-        const response = await request(app)
-        .delete("/users/12345")
-        .send({
-            username: "jason", 
-            password: "password1"
-        });
-    });
+	test.skip("User login route returns a single user as object", async () => {
+		// POST localhost:3000/users/login
+		const response = await request(app)
+			.post("/users/login")
+			.send({
+				username: "jason", 
+				password:"SuperCoolPassword1"
+			});
+	});
+
+	test.skip("User update/edit route returns a single user as object", async () => {
+		// PATCH localhost:3000/users/12345
+		const response = await request(app)
+			.patch("/users/12345")
+			.send({
+				username: "jason", 
+				password:"SuperCoolPassword1"
+			});
+	});
+
+	test.skip("User delete route returns return a number of users deleted", async () => {
+		// DELETE localhost:3000/users/12345
+		const response = await request(app)
+			.delete("/users/12345")
+			.send({
+				username: "jason", 
+				password:"SuperCoolPassword1"
+			});
+	});
+
 });
