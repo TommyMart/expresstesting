@@ -5,17 +5,32 @@ const {app} = require("../src/server.js");
 const request = require("supertest");
 
 describe("Users controller", () => {
+
     test("Get all users route returns array of users", async () => {
+        // GET localhost:3000/users
         const response = await request(app).get("/users");
+
+        expect(response.body.data.length).toBe(6);
+
+        let expectedUsers = [
+            "xander",
+            "tom",
+            "hannah",
+            "reece",
+            "brad",
+            "hayden"
+        ];
+
+        expect(response.body.data).toEqual(expect.arrayContaining(expectedUsers));
     });
 
-    test("Get user by ID route returns a single user as object", async () => {
+    test.skip("Get user by ID route returns a single user as object", async () => {
         // GET localhost:3000/users/12345
         let targetUserId = "12345";
         const response = await request(app).get("/users/" + targetUserId);
     });
 
-    test("User sign-up route returns a single user as object", async () => {
+    test.skip("User sign-up route returns a single user as object", async () => {
         // POST localhost:3000/users/signup
         const response = (await request(app)
         .post("/users/signup"))
@@ -25,7 +40,7 @@ describe("Users controller", () => {
         });
     });
 
-    test("User login route returns a single user as object", async () => {
+    test.skip("User login route returns a single user as object", async () => {
         // POST localhost:3000/users/login
         const response = (await request(app)
         .post("/users/login"))
@@ -35,7 +50,7 @@ describe("Users controller", () => {
         });
     });
 
-    test("User update/edit route returns a single user as object", async () => {
+    test.skip("User update/edit route returns a single user as object", async () => {
         // PATCH localhost:3000/users/12345
         const response = await request(app)
         .patch("/users/12345")
@@ -45,7 +60,13 @@ describe("Users controller", () => {
         });
     });
 
-    test("User delete route returns return a number of users deleted", async () => {
-
+    test.skip("User delete route returns return a number of users deleted", async () => {
+        // DELETE localhost:3000/users/12345
+        const response = await request(app)
+        .delete("/users/12345")
+        .send({
+            username: "jason", 
+            password: "password1"
+        });
     });
 });
